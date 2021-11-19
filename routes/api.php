@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CreateNoteController;
 use App\Http\Resources\NoteCollection;
 use App\Http\Resources\NoteResource;
 use App\Models\Note;
@@ -34,4 +35,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
         return new NoteResource($note);
     });
+
+    Route::post('notes', [CreateNoteController::class, 'create']);
 });
