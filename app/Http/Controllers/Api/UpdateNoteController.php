@@ -3,12 +3,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Exceptions\ApiException;
+use App\Http\Resources\NoteResource;
 use App\Models\Note;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-final class CreateNoteController extends ApiController
+final class UpdateNoteController extends ApiController
 {
     /**
      * Create a new note.
@@ -17,18 +18,20 @@ final class CreateNoteController extends ApiController
      */
     public function handle(Request $request): Response
     {
+        $conditions = [
+            'user_id' => $request->user()->id ?? null,
+            'id' => $request->id ?? null,
+        ];
+
+        $entity = Note::where($conditions)->first();
+
+        if (!$entity) {
+            $this->throw('Note not found', [], 404);
+        }
+
         $title = $request->input('title');
         $note = $request->input('note');
 
-        if (!$title) {
-            $this->throw('Missing required params', ['title' => 'Required']);
-        }
-
-        if (!$note) {
-            $this->throw('Missing required params', ['note' => 'Required']);
-        }
-
-        $entity = new Note();
         $entity->setAttribute('title', $title);
         $entity->setAttribute('note', $note);
         $entity->setAttribute('user_id', $request->user()->id);
@@ -40,6 +43,7 @@ final class CreateNoteController extends ApiController
             // FIXME probably best to log something here since we aren't surfacing the real problem to the user
         }
 
-        return $this->newResourceCreatedResponse();
+        return (new NoteResource($entity))
+            ->toResponse($request);
     }
 }

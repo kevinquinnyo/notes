@@ -20,6 +20,16 @@ abstract class ApiController extends Controller
     }
 
     /**
+     * Return a 204 with an empty response body. Use this when a resource is deleted.
+     *
+     * @return Response
+     */
+    protected function newResourceDeletedResponse(): Response
+    {
+        return new Response('', 204);
+    }
+
+    /**
      * @param array $errors the errors to add to the response
      * @return void
      */
