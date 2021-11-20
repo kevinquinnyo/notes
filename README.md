@@ -80,7 +80,7 @@ To run only the tests that were added for the Notes API:
 sail test tests/Feature/Api
 
 # without docker
-sail test tests/Feature/Api
+vendor/bin/phpunit tests/Feature/Api
 ```
 
 ### Additional Notes:
