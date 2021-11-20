@@ -20,14 +20,6 @@ final class CreateNoteController extends ApiController
         $title = $request->input('title');
         $note = $request->input('note');
 
-        if (!$title) {
-            $this->throw('Missing required params', ['title' => 'Required']);
-        }
-
-        if (!$note) {
-            $this->throw('Missing required params', ['note' => 'Required']);
-        }
-
         $data = [
             'title' => $title,
             'note' => $note,
