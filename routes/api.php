@@ -8,6 +8,7 @@ use App\Http\Resources\NoteCollection;
 use App\Http\Resources\NoteResource;
 use App\Models\Note;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
