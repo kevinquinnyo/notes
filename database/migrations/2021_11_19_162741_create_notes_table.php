@@ -16,7 +16,7 @@ class CreateNotesTable extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
             $table->string('title', 50);
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->integer('user_id');
 
             $table->index(['user_id']);

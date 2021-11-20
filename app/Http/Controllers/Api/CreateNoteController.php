@@ -28,16 +28,16 @@ final class CreateNoteController extends ApiController
             $this->throw('Missing required params', ['note' => 'Required']);
         }
 
-        $entity = new Note();
-        $entity->setAttribute('title', $title);
-        $entity->setAttribute('note', $note);
-        $entity->setAttribute('user_id', $request->user()->id);
+        $data = [
+            'title' => $title,
+            'note' => $note,
+            'user_id' => $request->user()->id,
+        ];
 
-        try {
-            $entity->saveOrFail();
-        } catch (\Throwable $e) {
-            $this->throw('Unable to save note.');
-            // FIXME probably best to log something here since we aren't surfacing the real problem to the user
+        $entity = new Note($data);
+
+        if (!$entity->save()) {
+            $this->throw('Unable to save note.', $entity->getErrors(), 400);
         }
 
         return $this->newResourceCreatedResponse();

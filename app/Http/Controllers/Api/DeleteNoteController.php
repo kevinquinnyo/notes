@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 final class DeleteNoteController extends ApiController
 {
     /**
-     * Create a new note.
+     * Delete a note.
      *
      * @return Response
      */

@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 final class UpdateNoteController extends ApiController
 {
     /**
-     * Create a new note.
+     * Update a note.
      *
      * @return Response
      */
@@ -29,18 +29,11 @@ final class UpdateNoteController extends ApiController
             $this->throw('Note not found', [], 404);
         }
 
-        $title = $request->input('title');
-        $note = $request->input('note');
+        $entity->title = $request->input('title');
+        $entity->note = $request->input('note');
 
-        $entity->setAttribute('title', $title);
-        $entity->setAttribute('note', $note);
-        $entity->setAttribute('user_id', $request->user()->id);
-
-        try {
-            $entity->saveOrFail();
-        } catch (\Throwable $e) {
-            $this->throw('Unable to save note.');
-            // FIXME probably best to log something here since we aren't surfacing the real problem to the user
+        if (!$entity->save()) {
+            $this->throw('Unable to update note.', $entity->getErrors(), 400);
         }
 
         return (new NoteResource($entity))

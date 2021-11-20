@@ -2,18 +2,28 @@
 
 namespace App\Models;
 
+use App\Http\Requests\NoteRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Note extends Model
+class Note extends AbstractModel
 {
     use HasFactory;
 
     protected $fillable = [
         'title',
         'note',
+        'user_id',
     ];
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRules(): array
+    {
+        return (new NoteRequest())->rules();
+    }
 
     /**
      * @return BelongsTo
