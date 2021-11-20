@@ -19,9 +19,6 @@ final class NoteControllerTest extends ApiTestCase
         $this->assertEquals(json_encode(['message' => 'Unauthenticated.']), $response->getContent());
     }
 
-    /**
-     * @group curr
-     */
     public function testCanOnlyViewOwnNote(): void
     {
         // some setup for this test. We create 2 notes for the authenticated user, then two notes that don't belong to

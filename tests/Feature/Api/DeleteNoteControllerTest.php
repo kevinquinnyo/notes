@@ -19,9 +19,6 @@ final class DeleteNoteControllerTest extends ApiTestCase
         $this->assertEquals(json_encode(['message' => 'Unauthenticated.']), $response->getContent());
     }
 
-    /**
-     * @group curr
-     */
     public function testCanDeleteOwnNote(): void
     {
         $data = [
@@ -42,9 +39,6 @@ final class DeleteNoteControllerTest extends ApiTestCase
         $this->assertEmpty($response->getContent());
     }
 
-    /**
-     * @group curr
-     */
     public function testCannotDeleteSomeoneElsesNote(): void
     {
         $otherUserId = self::FAKE_USER_ID + 1;

@@ -24,7 +24,7 @@ final class NotesController extends ApiController
             'user_id' => $request->user()->id,
         ];
 
-        $note = Note::all()->where($conditions);
+        $notes = Note::where($conditions)->get();
 
         return (new NoteCollection($notes))
             ->toResponse($request);

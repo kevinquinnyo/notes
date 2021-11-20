@@ -70,9 +70,6 @@ final class UpdateNoteControllerTest extends ApiTestCase
         $this->assertEquals(json_encode($expected), $response->getContent());
     }
 
-    /**
-     * @group curr2
-     */
     public function testPassingAUserIdHasNoEffect(): void
     {
         // first we create our note to edit later
