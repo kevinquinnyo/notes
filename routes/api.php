@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\CreateNoteController;
 use App\Http\Controllers\Api\DeleteNoteController;
+use App\Http\Controllers\Api\NotesController;
 use App\Http\Controllers\Api\UpdateNoteController;
 use App\Http\Controllers\Api\ViewNoteController;
 use App\Http\Resources\NoteCollection;
@@ -27,13 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/notes', function (Request $request) {
-        $notes = Note::all()
-            ->where('user_id', $request->user()->id);
-
-        return new NoteCollection($notes);
-    });
-
+    Route::get('/notes', [NotesController::class, 'handle']);
     Route::get('notes/{id}', [ViewNoteController::class, 'handle']);
     Route::post('notes', [CreateNoteController::class, 'handle']);
     Route::patch('notes/{id}', [UpdateNoteController::class, 'handle']);
