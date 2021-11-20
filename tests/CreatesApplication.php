@@ -3,6 +3,8 @@
 namespace Tests;
 
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Artisan;
 
 trait CreatesApplication
 {
@@ -16,7 +18,18 @@ trait CreatesApplication
         $app = require __DIR__.'/../bootstrap/app.php';
 
         $app->make(Kernel::class)->bootstrap();
+        $this->clearConfigCache();
 
         return $app;
     }
+
+    /**
+     * Clear config cache for tests.
+     * @return void
+     */
+    private function clearConfigCache(): void
+    {
+        Artisan::call('config:clear');
+    }
+
 }

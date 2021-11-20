@@ -29,8 +29,22 @@ final class UpdateNoteController extends ApiController
             $this->throw('Note not found', [], 404);
         }
 
-        $entity->title = $request->input('title');
-        $entity->note = $request->input('note');
+        $title = $request->input('title');
+        $note = $request->input('note');
+
+        // early return/no-op if there is nothing to patch
+        if (!$title && !$note) {
+            return (new NoteResource($entity))
+                ->toResponse($request);
+            }
+
+        if ($title) {
+            $entity->title = $title;
+        }
+
+        if ($note) {
+            $entity->note = $note;
+        }
 
         if (!$entity->save()) {
             $this->throw('Unable to update note.', $entity->getErrors(), 400);
