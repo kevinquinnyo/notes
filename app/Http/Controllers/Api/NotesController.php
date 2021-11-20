@@ -13,8 +13,9 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 final class NotesController extends ApiController
 {
     /**
-     * Create a new note.
+     * Retrieve all notes.
      *
+     * FIXME: pagination would be nice
      * @return Response
      */
     public function handle(Request $request): Response

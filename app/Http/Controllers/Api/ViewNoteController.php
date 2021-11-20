@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 final class ViewNoteController extends ApiController
 {
     /**
-     * Create a new note.
+     * View a note.
      *
      * @return Response
      */
