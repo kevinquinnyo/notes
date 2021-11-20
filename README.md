@@ -62,9 +62,11 @@ curl localhost/api/note/1 -H 'content-type: application/json' -H 'Authorization:
 
 # create a note
 curl localhost/api/notes -H 'content-type: application/json' -H 'Authorization: Bearer $YOUR_TOKEN' -X POST
+  --data '{"title": "A Title", "note": "A Note"}'
 
 # update a note (replace 1 in the URL with the note ID you want to update)
 curl localhost/api/note/1 -H 'content-type: application/json' -H 'Authorization: Bearer $YOUR_TOKEN' -X PATCH
+  --data '{"title": "Updated Title", "note": "Updated Note"}'
 
 # delete a note (replace 1 in the URL with the note ID you want to delete)
 curl localhost/api/note/1 -H 'content-type: application/json' -H 'Authorization: Bearer $YOUR_TOKEN' -X DELETE
